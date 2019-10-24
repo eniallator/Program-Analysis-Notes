@@ -40,12 +40,13 @@
   - Can only discover nodes in a single component
 - Depth first **TRAVERSAL**
   - Uses a stack data structure for the nodes waiting to be visited
+- The traversal will find out a minimal traversal for the edges needed to visit each node
 
-#### Revised BFT
+#### Revised Traversals
 
-- do a BF traversal from every node in the graph if the node hasn't already been discovered
+- do a traversal from every node in the graph if the node hasn't already been discovered
 
-#### Running Time Of BFT
+#### Running Time Of Traversals
 
 - Measure progress?
   - Need to consider num edges/nodes
@@ -58,3 +59,32 @@
 - `m` total edges
 - Total across all iterations of loop
 - `sum(max(1, outdegree(v))) = θ(n + m)`
+- This means that there are `O(m)` iterations of the loop
+  - Since the traversal will produce a tree
+
+## Topological Sorting
+
+### Working With Dependencies
+
+- Directed graphs often encode dependencies
+- Can only sort directed acyclic graphs
+
+### Topological Sorting Of DAGs
+
+- Topological sorting algorithms start off by associating each vertex with a number - it's `indegree`
+  - The indegree is the number of edges pointing towards any given vertex
+- Starts off with a stack containing all vertices with indegrees of 0
+- Then goes over the out going edges to the next vertices and push them on the vertices stack
+- It also decrements the indegrees of each vertex it finds by 1
+- Then add the vertices with a value of 0 to the stack and repeat
+- What about a queue?
+  - Doesn't matter since it will be used to hold the schedulable vertices and so it will return a correct result
+
+### Running Time
+
+- Must be `θ(m + n)`
+  - To traverse all adjacency lists
+
+### Prioritising
+
+- Use a priority queue instead of a stack and potentially use weights on edges
